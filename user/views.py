@@ -6,6 +6,8 @@ from rest_framework.views import APIView
 from rest_framework import views
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 
@@ -54,8 +56,10 @@ class UserLoginView(TokenObtainPairView):
 
 
 class LogoutView(APIView):
+    permission_classes=(IsAuthenticated,)
+    authentication_classes=(JWTAuthentication,)
     def post(self,request):
-        refresh_token =  request.data.get('refresh_token')
+        refresh_token=request.data.get('refresh_token')
         if not refresh_token:
             return Response({'error':'Refresh token is required'}, status=status.HTTP_400_BAD_REQUEST)
         

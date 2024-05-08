@@ -40,8 +40,10 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
 
     "user",
+    "books",
 
 
 ]
@@ -86,6 +88,11 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+import os
+
+MEDIA_URL ='/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 
 # Password validation
