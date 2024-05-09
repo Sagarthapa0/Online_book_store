@@ -20,11 +20,12 @@ class BookCategory(models.Model):
         return self.name
     
 class BookSubCategory(models.Model):
-    category=models.ForeignKey(BookCategory,verbose_name=("BookCategory"),on_delete=models.CASCADE)
+    category=models.ForeignKey(BookCategory,verbose_name=("Book Category"),on_delete=models.CASCADE)
     name=models.CharField(max_length=100)
 
     def __str__(self) -> str:
         return self.name
+    
     
 
 
@@ -53,8 +54,8 @@ class BookOption(models.Model):
 class Book(models.Model):
     slug = models.SlugField(null=True, blank=True, unique=True)
     category = models.ForeignKey(BookCategory,verbose_name=("BookCategory"),on_delete=models.CASCADE)
-    sub_category=models.ForeignKey(BookSubCategory,verbose_name=("BookSubCategory"),on_delete=models.CASCADE)
-    author=models.ManyToManyField(Author,verbose_name=("Author"))
+    sub_category=models.ForeignKey(BookSubCategory, verbose_name=("BookSubCategory"),on_delete=models.CASCADE)
+    author=models.ManyToManyField(Author, verbose_name=("Authors"))
     name=models.CharField(max_length=100,null=False,blank=False)
     description=models.TextField(null=True,blank=True)
     image=models.ImageField(upload_to='media',blank=True)
@@ -71,10 +72,8 @@ class Book(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
-        super(Book, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
     
     def __str__(self) -> str:
         return self.name
     
-
-

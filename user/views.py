@@ -27,6 +27,7 @@ def get_token_for_user(user):
     }
 
 class UserCreateView(CreateAPIView):
+    queryset=User.objects.all()
     serializer_class =UserCreateSerializer
 
     def post(self,request,*args,**kwargs):
@@ -93,7 +94,7 @@ class BuyerListView(ListAPIView):
     serializer_class=UserListSerializer
 
     def get_queryset(self):
-        return User.objects.filter(buyer=True)
+        return User.objects.filter(seller=False)
     
 
 class UserRetrieveView(RetrieveAPIView):
@@ -102,9 +103,13 @@ class UserRetrieveView(RetrieveAPIView):
     
 
 class UserUpdateView(UpdateAPIView):
-    queryset =User.objects.all()
+    # queryset =User.objects.all()
     serializer_class=UserListSerializer
-
+    
+    def get_object(self):
+        # query_term = self.request.GET.get('q')
+        print(User.objects.get(id=self.kwargs['pk']))
+        return User.objects.get(id=self.kwargs['pk'])
     
 class UserDeleteView(DestroyAPIView):
     queryset =User.objects.all()

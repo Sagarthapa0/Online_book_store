@@ -39,13 +39,15 @@ class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = "__all__"
+        
 
 
-    def get_seller():
-        return User.objects.filter(seller=True)
+    # def get_seller():
+    #     return User.objects.filter(seller=True)
     
 
 class BookCreateSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Book
         fields = "__all__"
