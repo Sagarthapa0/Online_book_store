@@ -13,7 +13,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 # Create your views here.
-from rest_framework.generics import ListAPIView,CreateAPIView,RetrieveAPIView,DestroyAPIView,UpdateAPIView
+from rest_framework.generics import ListAPIView,CreateAPIView,RetrieveAPIView,DestroyAPIView,UpdateAPIView,RetrieveUpdateAPIView
 from .serializers import UserCreateSerializer,UserListSerializer,UserLoginSerializer
 from .models import User
 
@@ -102,14 +102,15 @@ class UserRetrieveView(RetrieveAPIView):
     serializer_class=UserListSerializer
     
 
-class UserUpdateView(UpdateAPIView):
-    # queryset =User.objects.all()
+class UserUpdateView(RetrieveUpdateAPIView):
+    queryset =User.objects.all()
     serializer_class=UserListSerializer
     
-    def get_object(self):
-        # query_term = self.request.GET.get('q')
-        print(User.objects.get(id=self.kwargs['pk']))
-        return User.objects.get(id=self.kwargs['pk'])
+    # def get_object(self):
+    #     # query_term = self.request.GET.get('q')
+    #     print(User.objects.get(id=self.kwargs['pk']))
+    #     return User.objects.get(id=self.kwargs['pk'])
+    
     
 class UserDeleteView(DestroyAPIView):
     queryset =User.objects.all()

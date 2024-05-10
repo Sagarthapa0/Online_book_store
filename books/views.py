@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .serializers import BookSerializer,BookCategorySerializer,BookSUbCategorySerializer,AuthorSerializer,BookOptionSerializer,BookCreateSerializer
-from rest_framework.generics import ListAPIView,CreateAPIView,RetrieveAPIView,DestroyAPIView,UpdateAPIView
+from rest_framework.generics import ListAPIView,CreateAPIView,RetrieveAPIView,DestroyAPIView,UpdateAPIView,RetrieveUpdateAPIView
 from .models import Book,BookCategory,BookSubCategory,Author,BookOption
 
 
@@ -16,7 +16,7 @@ class BookCategoryCreateView(CreateAPIView):
     queryset=BookCategory.objects.all()
     serializer_class=BookCategorySerializer
 
-class BookCategoryUpdateView(UpdateAPIView):
+class BookCategoryUpdateView(RetrieveUpdateAPIView):
     queryset=BookCategory.objects.all()
     serializer_class=BookCategorySerializer
 
@@ -35,7 +35,7 @@ class BookSubCategoryRetrieveview(RetrieveAPIView):
     queryset=BookSubCategory.objects.all()
     serializer_class=BookSUbCategorySerializer
 
-class BookSubCategoryUpdateview(UpdateAPIView):
+class BookSubCategoryUpdateview(RetrieveUpdateAPIView):
     queryset=BookSubCategory.objects.all()
     serializer_class=BookSUbCategorySerializer
 
@@ -60,7 +60,7 @@ class AuthorCreateView(CreateAPIView):
     queryset=Author.objects.all()
     serializer_class=AuthorSerializer
 
-class AuthorUpdateView(UpdateAPIView):
+class AuthorUpdateView(RetrieveUpdateAPIView):
     queryset=Author.objects.all()
     serializer_class=AuthorSerializer
 
@@ -80,7 +80,7 @@ class BookOptionCreateView(CreateAPIView):
     queryset=BookOption.objects.all()
     serializer_class=BookOptionSerializer
 
-class BookOptionUpdateView(UpdateAPIView):
+class BookOptionUpdateView(RetrieveUpdateAPIView):
     queryset=BookOption.objects.all()
     serializer_class=BookOptionSerializer
 
@@ -112,7 +112,7 @@ class BookCreateView(CreateAPIView):
     queryset=Book.objects.all()
     serializer_class=BookCreateSerializer
 
-class BookUpdateView(UpdateAPIView):
+class BookUpdateView(RetrieveUpdateAPIView):
     queryset=Book.objects.all()
     serializer_class=BookSerializer
 
