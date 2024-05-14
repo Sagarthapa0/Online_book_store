@@ -1,7 +1,8 @@
 from rest_framework import serializers
-from .models import Order,OrderItem
+from .models import Order,OrderItem,Buy,Rent
 from books.models import BookOption
 from user.serializers import UserListSerializer,AddressSerializer
+
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -14,7 +15,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class OrderCreateSerializer(serializers.ModelSerializer):
-    #buyer = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    buyer = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
         model = Order
         fields = "__all__"
@@ -44,9 +45,9 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 
 class OrderItemCreateSerializer(serializers.ModelSerializer):
-    # order = OrderCreateSerializer()
+    # order = OrderSerializer()
     order = serializers.PrimaryKeyRelatedField(queryset=Order.objects.all())
-    order_option = serializers.PrimaryKeyRelatedField(queryset=BookOption.objects.all())
+    # order_option = serializers.PrimaryKeyRelatedField(queryset=BookOption.objects.all())
    
     class Meta:
         model = OrderItem
@@ -58,16 +59,29 @@ class OrderItemCreateSerializer(serializers.ModelSerializer):
             "order_option",
         )
 
-
     def create(self, validated_data):
-        # sourcery skip: inline-immediately-returned-variable
-        # order_data = validated_data.pop("order")
-        # order=Order.objects.create(**order_data)
-        # validated_data["order"] = order
+        book = validated_data.get('item', None)
+        print(book,"first")
+        order_item = OrderItem.objects.create(**validated_data)
+        print(book,"second")
+        order_option_instance = validated_data.pop("order_option")
+        print(book,"Third")
+        if order_option_instance == "Rent":
+            rent_data = {
+                "renter": self.context["request"].user,
+                "book": book,
+                "rent_date": validated_data["order"].created_at.date(),  # Assuming rent date is the order creation date
+                "return_date": None,  # Set the return date later based on business logic
+                "status": Rent.PENDING,  # Set the initial status to pending
+            }
+            rent = Rent.objects.create(**rent_data)
+        else:
+            buy_data = {"book": book}
+            buy = Buy.objects.create(**buy_data)
 
-        order_item = OrderItem.objects.create( **validated_data)
         # order_item.order=order
-        order_item.save()
+        # order_item.save()
+        # order_option.save()
         return order_item
 
     def update(self, instance, validated_data):
