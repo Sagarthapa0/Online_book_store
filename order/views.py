@@ -38,7 +38,7 @@ class OrderItemCreateView(CreateAPIView):
 
 class OrderItemUpdateView(RetrieveUpdateAPIView):
     queryset=OrderItem.objects.all()
-    serializer_class=OrderItemSerializer
+    serializer_class=OrderItemCreateSerializer
 
 
 class OrderItemRetrieveView(RetrieveAPIView):

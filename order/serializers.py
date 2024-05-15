@@ -61,11 +61,16 @@ class OrderItemCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         book = validated_data.get('item', None)
-        print(book,"first")
+        quantity= validated_data.get("quantity",1)
         order_item = OrderItem.objects.create(**validated_data)
-        print(book,"second")
         order_option_instance = validated_data.pop("order_option")
-        print(book,"Third")
+
+        if book.quantity < quantity:
+            raise serializers.ValidationError("Not Enough books available")
+        
+        book.quantity -= quantity
+        book.save()
+
         if order_option_instance == "Rent":
             rent_data = {
                 "renter": self.context["request"].user,

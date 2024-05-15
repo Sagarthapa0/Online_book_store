@@ -53,7 +53,7 @@ class BookOption(models.Model):
 
 class Book(models.Model):
     slug = models.SlugField(null=True, blank=True, unique=True)
-    category = models.ForeignKey(BookCategory,verbose_name=("BookCategory"),on_delete=models.CASCADE)
+    category = models.ForeignKey(BookCategory,verbose_name=("Book Category"),on_delete=models.CASCADE)
     sub_category=models.ForeignKey(BookSubCategory, verbose_name=("BookSubCategory"),on_delete=models.CASCADE)
     author=models.ManyToManyField(Author, verbose_name=("Authors"))
     name=models.CharField(max_length=100,null=False,blank=False)
