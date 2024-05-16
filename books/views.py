@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from .serializers import BookSerializer,BookCategorySerializer,BookSUbCategorySerializer,AuthorSerializer,BookOptionSerializer,BookCreateSerializer
+from .serializers import BookSerializer,BookCategorySerializer,BookSUbCategorySerializer,AuthorSerializer,BookOptionSerializer,BookCreateSerializer,CommentSerializer,BookListSerializer
 from rest_framework.generics import ListAPIView,CreateAPIView,RetrieveAPIView,DestroyAPIView,UpdateAPIView,RetrieveUpdateAPIView
-from .models import Book,BookCategory,BookSubCategory,Author,BookOption
+from .models import Book,BookCategory,BookSubCategory,Author,BookOption,Comment
 
 
 class BookCategoryListView(ListAPIView):
@@ -101,11 +101,11 @@ class BookOptionDeleteView(DestroyAPIView):
 
 class BookListView(ListAPIView):
     queryset=Book.objects.all()
-    serializer_class=BookSerializer
+    serializer_class=BookListSerializer
 
 class BookRetrieveView(RetrieveAPIView):
     queryset=Book.objects.all()
-    serializer_class=BookSerializer
+    serializer_class=BookListSerializer
     lookup_field="slug"
 
 class BookCreateView(CreateAPIView):
@@ -134,3 +134,26 @@ class BookBuyRentView(ListAPIView):
         option = self.queryset.filter(available_to__can=book_option)
         return option
 
+
+
+
+class CommentListView(ListAPIView):
+    queryset=Comment.objects.all()
+    serializer_class=CommentSerializer
+
+class CommentRetrieveView(RetrieveAPIView):
+    queryset=Comment.objects.all()
+    serializer_class=CommentSerializer
+
+class CommentCreateView(CreateAPIView):
+    queryset=Comment.objects.all()
+    serializer_class=CommentSerializer
+
+class CommentUpdateView(UpdateAPIView):
+    queryset=Comment.objects.all()
+    serializer_class=CommentSerializer
+
+
+class CommentDeleteView(DestroyAPIView):
+    queryset=Comment.objects.all()
+    serializer_class=CommentSerializer

@@ -37,6 +37,13 @@ from .views import (
 
     # BookRentBuy
     BookBuyRentView,
+
+    #comment
+    CommentListView,
+    CommentCreateView,
+    CommentDeleteView,
+    CommentRetrieveView,
+    CommentUpdateView,
 )
 
 
@@ -79,6 +86,17 @@ urlpatterns=[
     path("<slug:slug>/delete/",BookDeleteView.as_view(),name="book-delete"),
 
     path("book-buy-rent/<str:book_option>/",BookBuyRentView.as_view(),name="book-buy-rent"),
+
+
+    # Comment
+
+    path("comment/",CommentListView.as_view(),name="comment-list"),
+    path("comment/create/",CommentCreateView.as_view(),name="comment-create"),
+    path("comment/<int:pk>/",CommentRetrieveView.as_view(),name="comment-retrieve"),
+    path("comment/<int:pk>/update/",CommentUpdateView.as_view(),name="comment-update"),
+    path("comment/<int:pk>/delete/",CommentDeleteView.as_view(),name="comment-delete"),
+
+
 
 
 ]

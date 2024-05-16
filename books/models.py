@@ -77,3 +77,12 @@ class Book(models.Model):
     def __str__(self) -> str:
         return self.name
     
+
+class Comment(models.Model):
+    book = models.ForeignKey(Book,on_delete=models.CASCADE)
+    comment=models.TextField()
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    is_visible=models.BooleanField(default=True)
+
+    def __str__(self) -> str:
+        return self.comment

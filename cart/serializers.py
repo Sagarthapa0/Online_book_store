@@ -10,7 +10,7 @@ from user.serializers import UserListSerializer
 class CartItemSerializer(serializers.ModelSerializer):
     book = serializers.PrimaryKeyRelatedField(queryset=Book.objects.all())
     order_option = serializers.PrimaryKeyRelatedField(queryset=BookOption.objects.all())
-    
+
     # cost=serializers.FloatField()
     book = BookSerializer()
 
@@ -97,9 +97,9 @@ class AddToCartSerializer(serializers.Serializer):
 
         cart_item.save()
 
-        # Decrease the book quantity
-        book.quantity -= quantity
-        book.save()
+        # # Decrease the book quantity
+        # book.quantity -= quantity
+        # book.save()
 
         return cart_item
 
