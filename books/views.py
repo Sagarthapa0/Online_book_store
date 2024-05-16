@@ -115,6 +115,7 @@ class BookCreateView(CreateAPIView):
 class BookUpdateView(RetrieveUpdateAPIView):
     queryset=Book.objects.all()
     serializer_class=BookSerializer
+    lookup_field = "slug"
 
 class BookDeleteView(DestroyAPIView):
     queryset=Book.objects.all()
