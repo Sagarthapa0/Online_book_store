@@ -5,6 +5,7 @@ from django.template.defaultfilters import slugify
 
 # Create your models here.
 
+
 class BookCategory(models.Model):
     name=models.CharField(max_length=100,blank=False,null=False)
     icon=models.ImageField(upload_to='media', blank=True)
@@ -18,7 +19,9 @@ class BookCategory(models.Model):
 
     def __str__(self) -> str:
         return self.name
-    
+
+
+
 class BookSubCategory(models.Model):
     category=models.ForeignKey(BookCategory,verbose_name=("Book Category"),on_delete=models.CASCADE)
     name=models.CharField(max_length=100)
@@ -41,7 +44,8 @@ class Author(models.Model):
 
     def __str__(self) -> str:
         return self.name
-    
+
+
     
 class BookOption(models.Model):
     can=models.CharField(max_length=100,blank=False,null=False)
@@ -78,6 +82,7 @@ class Book(models.Model):
         return self.name
     
 
+
 class Comment(models.Model):
     book = models.ForeignKey(Book,on_delete=models.CASCADE)
     comment=models.TextField()
@@ -86,3 +91,5 @@ class Comment(models.Model):
 
     def __str__(self) -> str:
         return self.comment
+
+

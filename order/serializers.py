@@ -44,6 +44,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
     
 
 
+
 class OrderItemCreateSerializer(serializers.ModelSerializer):
     # order = OrderSerializer()
     order = serializers.PrimaryKeyRelatedField(queryset=Order.objects.all())
@@ -99,5 +100,5 @@ class OrderItemCreateSerializer(serializers.ModelSerializer):
 
 
 
-    
+
 

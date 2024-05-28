@@ -74,6 +74,7 @@ class Rent(models.Model):
     def __str__(self):
         return f"{self.renter.username} - {self.book.title}"
     
+    
 
 class Buy(models.Model):
     book = models.ForeignKey(Book,verbose_name=("Book"),on_delete=models.CASCADE)
